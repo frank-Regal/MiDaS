@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.16)
 project(midas_cpp)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
@@ -19,39 +19,41 @@ find_package(catkin REQUIRED COMPONENTS
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
-list(APPEND CMAKE_PREFIX_PATH "~/libtorch")
-list(APPEND CMAKE_PREFIX_PATH "/usr/local/lib/python3.6/dist-packages/torch/lib")
-list(APPEND CMAKE_PREFIX_PATH "/usr/local/lib/python2.7/dist-packages/torch/lib")
+#list(APPEND CMAKE_PREFIX_PATH "~/libtorch")
+#list(APPEND CMAKE_PREFIX_PATH "/usr/local/lib/python3.8/dist-packages/torch/lib")
 
-if(NOT EXISTS "~/libtorch")
-    if (EXISTS "/usr/local/lib/python3.6/dist-packages/torch")     
-        include_directories(/usr/local/include) 
-        include_directories(/usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include)
-        include_directories(/usr/local/lib/python3.6/dist-packages/torch/include)
+#list(APPEND CMAKE_PREFIX_PATH "/usr/local/lib/python2.7/dist-packages/torch/lib")
 
-        link_directories(/usr/local/lib)
-        link_directories(/usr/local/lib/python3.6/dist-packages/torch/lib)
+#if(NOT EXISTS "~/libtorch")
+#    if (EXISTS "/usr/local/lib/python3.8/dist-packages/torch")     
+#        include_directories(/usr/local/include) 
+#        include_directories(/usr/local/lib/python3.8/dist-packages/torch/include/torch/csrc/api/include)
+#        include_directories(/usr/local/lib/python3.8/dist-packages/torch/include)
+#
+#        link_directories(/usr/local/lib)
+#        link_directories(/usr/local/lib/python3.8/dist-packages/torch/lib)
+#
+#        set(CMAKE_PREFIX_PATH /usr/local/lib/python3.8/dist-packages/torch)
+#        set(Boost_USE_MULTITHREADED ON)
+#        set(Torch_DIR /usr/local/lib/python3.8/dist-packages/torch)
+#            
+#    elseif (EXISTS "/usr/local/lib/python2.7/dist-packages/torch")
+#    
+#        include_directories(/usr/local/include) 
+#        include_directories(/usr/local/lib/python2.7/dist-packages/torch/include/torch/csrc/api/include)
+#        include_directories(/usr/local/lib/python2.7/dist-packages/torch/include)
+#
+#        link_directories(/usr/local/lib)
+#        link_directories(/usr/local/lib/python2.7/dist-packages/torch/lib)
+#
+#        set(CMAKE_PREFIX_PATH /usr/local/lib/python2.7/dist-packages/torch)
+#        set(Boost_USE_MULTITHREADED ON)
+#        set(Torch_DIR /usr/local/lib/python2.7/dist-packages/torch)
+#    endif()
+#endif()
 
-        set(CMAKE_PREFIX_PATH /usr/local/lib/python3.6/dist-packages/torch)
-        set(Boost_USE_MULTITHREADED ON)
-        set(Torch_DIR /usr/local/lib/python3.6/dist-packages/torch)
-            
-    elseif (EXISTS "/usr/local/lib/python2.7/dist-packages/torch")
-    
-        include_directories(/usr/local/include) 
-        include_directories(/usr/local/lib/python2.7/dist-packages/torch/include/torch/csrc/api/include)
-        include_directories(/usr/local/lib/python2.7/dist-packages/torch/include)
-
-        link_directories(/usr/local/lib)
-        link_directories(/usr/local/lib/python2.7/dist-packages/torch/lib)
-
-        set(CMAKE_PREFIX_PATH /usr/local/lib/python2.7/dist-packages/torch)
-        set(Boost_USE_MULTITHREADED ON)
-        set(Torch_DIR /usr/local/lib/python2.7/dist-packages/torch)
-    endif()
-endif()
-        
-
+# download and unzip c++ libtorch files from https://pytorch.org/ 
+list(APPEND CMAKE_PREFIX_PATH "/project/libtorch")
 
 find_package(Torch REQUIRED)
 find_package(OpenCV REQUIRED)
@@ -59,7 +61,7 @@ include_directories( ${OpenCV_INCLUDE_DIRS} )
 
 add_executable(midas_cpp src/main.cpp)
 target_link_libraries(midas_cpp "${TORCH_LIBRARIES}" "${OpenCV_LIBS} ${catkin_LIBRARIES}")
-set_property(TARGET midas_cpp PROPERTY CXX_STANDARD 14)
+set_property(TARGET midas_cpp PROPERTY CXX_STANDARD 17)
 
 
 

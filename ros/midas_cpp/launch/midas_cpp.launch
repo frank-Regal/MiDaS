@@ -1,7 +1,8 @@
 <launch>
     <arg name="input_topic" default="image_topic"/>
     <arg name="output_topic" default="midas_topic"/>
-    <arg name="model_name" default="model-small-traced.pt"/>
+    <!-- wget https://github.com/isl-org/MiDaS/releases/download/v2_1/model-small-traced.pt -->
+    <arg name="model_name" default="$(find midas_cpp)/model-small-traced.pt"/>
     <arg name="out_orig_size" default="true"/>
     <arg name="net_width" default="256"/>
     <arg name="net_height" default="256"/>
